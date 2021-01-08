@@ -14,9 +14,9 @@ dotenv.config();
 const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: process.env.DB_PASSWORD,
+    host: 'postgresql-regular-89104',
+    user: 'will luft',
+    password: '',
     database: 'smart-brain',
   }
 });
@@ -30,7 +30,7 @@ app.use(cors());
 
 // Routes 
 app.get('/', (req, res) => {
-  res.send('success');
+  res.send('api server is working');
 });
 
 app.post('/signin', signin.handleSignIn(db, bcrypt));
@@ -42,6 +42,6 @@ app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
 app.put('/image', (req, res) => {image.handleImage(req, res, db)} );
 app.post('/imageurl', (req, res) => {image.handleAPICall(req, res)});
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`🚀🚀🚀 App is runnin on port ${process.env.PORT} 🔥🔥🔥`);
 });
