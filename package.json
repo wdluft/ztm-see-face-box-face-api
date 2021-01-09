@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemone server.js",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,10 +14,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-validator": "^6.9.2",
     "knex": "^0.21.15",
     "pg": "^8.5.1"
   },
-  "eslingConfig": {
+  "eslintConfig": {
     "extends": [
       "wesbos"
     ]
