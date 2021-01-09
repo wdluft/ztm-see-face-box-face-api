@@ -33,7 +33,20 @@ app.get('/', (req, res) => {
   res.send('api server is working');
 });
 
-app.post('/signin', signin.handleSignIn(db, bcrypt));
+app.post(
+  '/signin',
+  [
+    check('email')
+      .normalizeEmail()
+      .isEmail()
+      .withMessage('Must use a valid email')
+      .not()
+      .isEmpty()
+      .withMessage('Email cannot be blank'),
+    check('password').not().isEmpty().withMessage('Password cannot be blank'),
+  ],
+  signin.handleSignIn(db, bcrypt, validationResult)
+);
 
 app.post(
   '/register',
