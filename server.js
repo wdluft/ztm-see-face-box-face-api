@@ -9,6 +9,7 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const leaderboard = require('./controllers/leaderboard');
 
 dotenv.config();
 
@@ -24,15 +25,20 @@ const db = knex({
 
 const app = express();
 
+// =============================
 // Middleware
+// =============================
 app.use(express.json());
 app.use(cors());
 
+// =============================
 // Routes
+// =============================
 app.get('/', (req, res) => {
   res.send('api server is working');
 });
 
+// Sign in user
 app.post(
   '/signin',
   [
@@ -48,6 +54,7 @@ app.post(
   signin.handleSignIn(db, bcrypt, validationResult)
 );
 
+// Register user
 app.post(
   '/register',
   [
@@ -71,15 +78,23 @@ app.post(
   }
 );
 
+// Get profile
 app.get('/profile/:id', (req, res) => {
   profile.handleProfileGet(req, res, db);
 });
 
+// Update entries
 app.put('/image', (req, res) => {
   image.handleImage(req, res, db);
 });
+// API call to clarifai
 app.post('/imageurl', (req, res) => {
   image.handleAPICall(req, res);
+});
+
+// Get leaderboard
+app.get('/leaderboard', (req, res) => {
+  leaderboard.handleLeaderboardGet(req, res, db);
 });
 
 app.listen(process.env.PORT || 6969, () => {
