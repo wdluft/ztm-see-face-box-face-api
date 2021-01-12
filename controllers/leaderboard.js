@@ -5,7 +5,6 @@ const handleLeaderboardGet = async (req, res, db) => {
     .orderBy('entries', 'desc')
     .limit(10)
     .then((data) => {
-      console.log(data);
       if (data.length) {
         return res.json({ users: data });
       }
